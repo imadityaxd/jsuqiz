@@ -1,9 +1,13 @@
 import dotenv from "dotenv";
 import { app } from "./app.js";
+import { dbConnect } from "./database/connectDb.js";
 
-dotenv.config();
-const PORT = process.env.PORT;
+dotenv.config({ path: "./.env" });
+const PORT = process.env.PORT || 5000; //getting data from .env file
 
-app.listen(PORT || 5000, () => {
-  console.log(`App running successfully at port ${PORT}`);
+//if the databse get connected successfully than the server will start running at defined PORT
+dbConnect().then(() => {
+  app.listen(PORT, () => {
+    console.log(`App running successfully at port ${PORT}`);
+  });
 });
