@@ -12,9 +12,9 @@ const home = async (req, res) => {
 
 const quiz = async (req, res) => {
   try {
-    const { question, options } = req.body;
+    const { question, options, answer } = req.body;
     console.log("test");
-    const quizCreated = await Quiz.create({ question, options });
+    const quizCreated = await Quiz.create({ question, options, answer });
     console.log("new quiz: ", quizCreated);
 
     res.status(201).json({
