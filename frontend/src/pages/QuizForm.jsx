@@ -1,23 +1,40 @@
 // src/QuizForm.js
 import { useState } from "react";
-import "./QuizForm.css";
+import toast from "react-hot-toast";
 
 export const QuizForm = () => {
-  const [question, setQuestion] = useState("");
-  const [option1, setOption1] = useState("");
-  const [option2, setOption2] = useState("");
-  const [option3, setOption3] = useState("");
-  const [option4, setOption4] = useState("");
-  const [answer, setAnswer] = useState("");
+  //storing all the questions data in a single object with useState
+  const [questionData, setQuestionData] = useState({
+    question: "",
+    option1: "",
+    option2: "",
+    option3: "",
+    option4: "",
+    answer: "",
+  });
 
+  //This function will run everyTime we insert some characters and update it in questionData object.
+  function handleChange(e) {
+    setQuestionData({
+      ...questionData,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  //This function will run when we will send questions data to backend
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();  //prevent the default behaviour of form so that the form will not refresh automatically
 
-    const quizData = {
+    const { question, option1, option2, option3, option4, answer } =
+      questionData;  //extracting the fields from questionData by destructuring it.
+
+    //setting all the fields in a way that we have set in backend so that the backend api will accept this data.
+    const quizData = { 
       question: question,
       options: [option1, option2, option3, option4],
       answer,
-    };
+    }; 
+
     try {
       const response = await fetch("http://localhost:5000/api/quiz/add-quiz", {
         method: "POST",
@@ -26,8 +43,29 @@ export const QuizForm = () => {
         },
         body: JSON.stringify(quizData),
       });
-      console.log(response);
+      const result = await response.json();
+
+    //using react-hot-toast for toast message
+      toast.success(result.msg, {
+        style: {
+          minWidth: "300px",
+          minHeight: "50px",
+          fontSize: "18px",
+        },
+      });
+
+      // Reset all the  fields
+      setQuestionData({
+        question: "",
+        option1: "",
+        option2: "",
+        option3: "",
+        option4: "",
+        answer: "",
+      });
+      console.log(result);
     } catch (error) {
+      toast.error(error || "something went wrong in adding toast");
       console.log(error || "something went wrong in post request");
     }
   };
@@ -40,8 +78,8 @@ export const QuizForm = () => {
           <input
             type="text"
             name="question"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
+            value={questionData.question}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -49,8 +87,8 @@ export const QuizForm = () => {
           <input
             type="text"
             name="option1"
-            value={option1}
-            onChange={(e) => setOption1(e.target.value)}
+            value={questionData.option1}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -58,8 +96,8 @@ export const QuizForm = () => {
           <input
             type="text"
             name="option2"
-            value={option2}
-            onChange={(e) => setOption2(e.target.value)}
+            value={questionData.option2}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -67,8 +105,8 @@ export const QuizForm = () => {
           <input
             type="text"
             name="option3"
-            value={option3}
-            onChange={(e) => setOption3(e.target.value)}
+            value={questionData.option3}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -76,8 +114,8 @@ export const QuizForm = () => {
           <input
             type="text"
             name="option4"
-            value={option4}
-            onChange={(e) => setOption4(e.target.value)}
+            value={questionData.option4}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -85,8 +123,8 @@ export const QuizForm = () => {
           <input
             type="text"
             name="answer"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
+            value={questionData.answer}
+            onChange={handleChange}
           />
         </div>
         <button type="submit">Add Question</button>
