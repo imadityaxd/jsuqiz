@@ -1,8 +1,11 @@
 import { Quiz } from "../quizModel/quizModel.js";
 
+
+//get request for getting quizzes
 const home = async (req, res) => {
   try {
-    res.status(200).send("Welcome to quiz app by WebDevelopers.");
+    const data = await Quiz.find();
+    res.status(200).json(data);
   } catch (error) {
     console.log(error);
   }

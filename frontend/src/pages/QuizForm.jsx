@@ -1,4 +1,5 @@
 // src/QuizForm.js
+import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -32,14 +33,17 @@ export const QuizForm = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/quiz/add-quiz", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(quizData),
-      });
-      const result = await response.json();
+      const response = await axios.post(
+        "http://localhost:5000/api/quiz/add-quiz",
+        quizData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const result = response.data;
 
       toast.success(result.msg, {
         style: {
@@ -57,16 +61,24 @@ export const QuizForm = () => {
         option4: "",
         answer: "",
       });
+
       console.log(result);
     } catch (error) {
-      toast.error(error.message || "Something went wrong in adding toast");
-      console.log(error.message || "Something went wrong in post request");
+      toast.error(
+        error.response?.data?.message || "Something went wrong in adding toast"
+      );
+      console.log(
+        error.response?.data?.message || "Something went wrong in post request"
+      );
     }
   };
 
   return (
     <section className="p-6 max-w-lg mx-auto mt-10 mb-10">
-      <form className="space-y-4 border border-orange-700 shadow-orange-400 p-6 rounded-lg shadow-lg" onSubmit={handleSubmit}>
+      <form
+        className="space-y-4 border border-orange-700 shadow-orange-400 p-6 rounded-lg shadow-lg"
+        onSubmit={handleSubmit}
+      >
         <div>
           <label className="block text-orange-600 font-bold mb-2">
             Question

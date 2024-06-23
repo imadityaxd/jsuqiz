@@ -17,7 +17,7 @@ const Navbar = () => {
             <img src={logo} alt="logo" className="h-10 w-10 mr-2" />
             <span className="text-xl tracking-tight">JS Quiz</span>
           </div>
-          <ul className="hidden md:flex ml-14 space-x-12">
+          <ul className="hidden md:flex ml-14 space-x-12 text-lg">
             <li>
               <NavLink to="/">Home</NavLink>
             </li>
