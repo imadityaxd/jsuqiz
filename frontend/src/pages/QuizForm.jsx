@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { LoaderCircle } from "lucide-react";
+import { questionsSchema } from "../validations/questionsSchema";
 
 export const QuizForm = () => {
   const [loading, setLoading] = useState(false);
@@ -35,9 +36,11 @@ export const QuizForm = () => {
     };
 
     try {
+      const validatedData = questionsSchema.parse(quizData);
+      console.log("validated data: ", validatedData);
       const response = await axios.post(
         "http://localhost:5000/api/quiz/add-quiz",
-        quizData,
+        validatedData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -63,14 +66,21 @@ export const QuizForm = () => {
         option4: "",
         answer: "",
       });
-      setLoading(false);
+
       console.log(result);
     } catch (error) {
-      toast.error(error.response?.data?.message || "error in fetchig post api");
-      setLoading(false);
-      console.log(
-        error.response?.data?.message || "Something went wrong in post request"
+      const zodError = error?.errors?.length > 0 && error.errors[0].message;
+      toast.error(
+        error.response?.data?.message || zodError || "error in fetchig post api"
       );
+
+      console.log(
+        error.response?.data?.message ||
+          zodError ||
+          "Something went wrong in post request"
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
