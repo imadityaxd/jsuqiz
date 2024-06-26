@@ -18,7 +18,7 @@ const quiz = async (req, res) => {
     const { question, options, answer } = req.body;
     console.log("test");
     const quizCreated = await Quiz.create({ question, options, answer });
-    console.log("new quiz: ", quizCreated);
+    // console.log("new quiz: ", quizCreated);
 
     res.status(201).json({
       msg: "quiz upload successful",
