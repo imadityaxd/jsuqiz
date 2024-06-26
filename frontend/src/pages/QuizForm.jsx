@@ -2,8 +2,10 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { LoaderCircle } from "lucide-react";
 
 export const QuizForm = () => {
+  const [loading, setLoading] = useState(false);
   const [questionData, setQuestionData] = useState({
     question: "",
     option1: "",
@@ -22,7 +24,7 @@ export const QuizForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const { question, option1, option2, option3, option4, answer } =
       questionData;
 
@@ -61,12 +63,11 @@ export const QuizForm = () => {
         option4: "",
         answer: "",
       });
-
+      setLoading(false);
       console.log(result);
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Something went wrong in adding toast"
-      );
+      toast.error(error.response?.data?.message || "error in fetchig post api");
+      setLoading(false);
       console.log(
         error.response?.data?.message || "Something went wrong in post request"
       );
@@ -150,10 +151,25 @@ export const QuizForm = () => {
           />
         </div>
         <button
-          className="bg-gradient-to-r from-orange-500 to-orange-800 py-3 rounded-md w-full hover:bg-orange-800"
+          className={`py-3 rounded-md w-full ${
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-gradient-to-r from-orange-500 to-orange-800 hover:bg-orange-800"
+          }`}
           type="submit"
+          disabled={loading}
         >
-          Add Question
+          {loading ? (
+            <div className="flex items-center justify-center">
+              <LoaderCircle
+                className="animate-spin text-white mr-2"
+                size={24}
+              />
+              <span>Loading...</span>
+            </div>
+          ) : (
+            "Add Question"
+          )}
         </button>
       </form>
     </section>

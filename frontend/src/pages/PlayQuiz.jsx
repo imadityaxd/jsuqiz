@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { LoaderCircle } from 'lucide-react';
 
 const PlayQuiz = () => {
   const [questions, setQuestions] = useState([]);
@@ -50,7 +51,10 @@ const PlayQuiz = () => {
 
   if (!questions.length) {
     return (
-      <div className="text-white">Loading... no data found in backend</div>
+      <div className="flex flex-col justify-center items-center h-screen space-y-4">
+      <LoaderCircle className="animate-spin text-orange-500" size={64} />
+      <p className="text-xl text-gray-400">Fetching data...</p>
+    </div>
     );
   }
 
