@@ -69,15 +69,15 @@ const Navbar = () => {
           </ul>
 
           <div className="hidden lg:flex justify-center space-x-12 items-center">
-            <a href="#" className="py-2 px-3 border rounded-md">
+            <NavLink to="/login" className="py-2 px-3 border rounded-md">
               Sign In
-            </a>
-            <a
-              href="#"
+            </NavLink>
+            <NavLink
+              to="/signup"
               className="bg-gradient-to-r from-orange-500 to-orange-800 py-2 px-3 rounded-md"
             >
               Create an account
-            </a>
+            </NavLink>
           </div>
 
           <div className="lg:hidden flex flex-col justify-end">
