@@ -34,6 +34,7 @@ export default function AuthForm(prop) {
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
 
@@ -129,7 +130,7 @@ export default function AuthForm(prop) {
               prop.formName
             )}
           </button>
-          <p>
+          <p className="mt-6">
             Already {prop.formName} ?{" "}
             <NavLink to={prop.goTo} className="text-orange-500">
               {prop.navigate}

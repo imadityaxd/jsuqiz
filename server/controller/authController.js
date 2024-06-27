@@ -31,9 +31,11 @@ const registerUser = async (req, res) => {
       });
     }
 
-    return res
-      .status(201)
-      .json({ success: true, message: "User registered Successfully. Please login !", user });
+    return res.status(201).json({
+      success: true,
+      message: "User registered Successfully. Please login !",
+      user,
+    });
   } catch (error) {
     console.log("error in register controller. Error: ", error);
     return res.status(400).json({
@@ -87,7 +89,7 @@ const loginUser = async (req, res) => {
       httpOnly: true,
       secure: true,
     };
-
+  
     return res.status(200).cookie("token", token, options).json({
       success: true,
       message: "user logged in successfully",
