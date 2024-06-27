@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
 
     return res
       .status(201)
-      .json({ success: true, message: "User registered Successfully", user });
+      .json({ success: true, message: "User registered Successfully. Please login !", user });
   } catch (error) {
     console.log("error in register controller. Error: ", error);
     return res.status(400).json({
