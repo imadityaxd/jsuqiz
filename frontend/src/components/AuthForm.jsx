@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { userSchema } from "../validations/userSchema";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { LoaderCircle } from "lucide-react";
 
 export default function AuthForm(prop) {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
@@ -47,12 +48,18 @@ export default function AuthForm(prop) {
           fontSize: "18px",
         },
       });
-      console.log("clearing data");
+      // console.log("clearing data");
       setUserData({
         username: "",
         password: "",
       });
 
+   // Navigate based on prop.api
+   if (prop.api === "register") {
+    navigate("/login");  // Redirect to login page after signup
+  } else if (prop.api === "login") {
+    navigate("/dashboard");  // Redirect to a different page after login
+  }
       console.log("api result ", result);
     } catch (error) {
       const zodError = error?.errors?.length > 0 && error.errors[0].message;
