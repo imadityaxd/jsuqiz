@@ -71,30 +71,30 @@ const loginUser = async (req, res) => {
     }
 
     let token = user.generateToken();
-    user.token = token;
-    await user.save({ validateBeforeSave: false });
+    // user.token = token;
+    // await user.save({ validateBeforeSave: false });
     // console.log("token: ", token);
-    if (!token) {
-      return res.status(500).json({
-        success: false,
-        message: "error in token generation",
-      });
-    }
+    // if (!token) {
+    //   return res.status(500).json({
+    //     success: false,
+    //     message: "error in token generation",
+    //   });
+    // }
 
     const loggedInUser = await User.findById(user._id).select(
-      "-password -token"
+      "-password"
     );
 
     const options = {
-      httpOnly: true,
+      // httpOnly: true,
       secure: true,
+      sameSite: "Strict",
     };
-  
+
     return res.status(200).cookie("token", token, options).json({
       success: true,
       message: "user logged in successfully",
       user: loggedInUser,
-      token,
     });
   } catch (error) {
     console.log("error in login. error: ", error);

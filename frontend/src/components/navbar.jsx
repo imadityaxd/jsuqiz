@@ -1,15 +1,15 @@
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
-
+  const { isAuthenticated } = useContext(AuthContext);
   const toggleNavbar = () => {
     setOpenMenu(!openMenu);
   };
-  console.log("openMenu:", openMenu);
 
   let menuRef = useRef();
 
@@ -69,15 +69,18 @@ const Navbar = () => {
           </ul>
 
           <div className="hidden lg:flex justify-center space-x-12 items-center">
-            {/* <NavLink to="/login" className="py-2 px-3 border rounded-md">
-              Sign In
-            </NavLink> */}
-            <NavLink
-              to="/login"
-              className="bg-gradient-to-r from-orange-500 to-orange-800 py-2 px-3 rounded-md"
-            >
-              Admin Login
-            </NavLink>
+            {isAuthenticated ? (
+              <NavLink to="/dashboard" className="py-2 px-3 border rounded-md">
+                Dashboard
+              </NavLink>
+            ) : (
+              <NavLink
+                to="/login"
+                className="bg-gradient-to-r from-orange-500 to-orange-800 py-2 px-3 rounded-md"
+              >
+                Admin Login
+              </NavLink>
+            )}
           </div>
 
           <div className="lg:hidden flex flex-col justify-end">

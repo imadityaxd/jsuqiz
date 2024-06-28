@@ -21,6 +21,7 @@ function App() {
           <Route path="/dashboard" element={<AdminDashboard />} />
         </Routes>
       </BrowserRouter>
+     
     </>
   );
 }

@@ -4,9 +4,11 @@ import { userSchema } from "../validations/userSchema";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { LoaderCircle } from "lucide-react";
+// import { AuthContext } from "../context/AuthContext";
 
 export default function AuthForm(prop) {
   const navigate = useNavigate();
+  // const { login } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
@@ -27,7 +29,7 @@ export default function AuthForm(prop) {
 
     try {
       const validatedData = userSchema.parse(userData);
-      console.log("validated data: ", validatedData);
+      // console.log("validated data: ", validatedData);
       const response = await axios.post(
         `http://localhost:5000/api/quiz/${prop.api}`,
         validatedData,
@@ -53,6 +55,11 @@ export default function AuthForm(prop) {
         username: "",
         password: "",
       });
+
+      // // Set token in context
+      // if (result.token) {
+      //   login(result.token); // Added to set token in AuthContext
+      // }
 
       // Navigate based on prop.api
       if (prop.api === "register") {
