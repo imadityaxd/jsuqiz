@@ -54,17 +54,19 @@ export default function AuthForm(prop) {
         password: "",
       });
 
-   // Navigate based on prop.api
-   if (prop.api === "register") {
-    navigate("/login");  // Redirect to login page after signup
-  } else if (prop.api === "login") {
-    navigate("/dashboard");  // Redirect to a different page after login
-  }
+      // Navigate based on prop.api
+      if (prop.api === "register") {
+        navigate("/login"); // Redirect to login page after signup
+      } else if (prop.api === "login") {
+        navigate("/dashboard"); // Redirect to a different page after login
+      }
       console.log("api result ", result);
     } catch (error) {
       const zodError = error?.errors?.length > 0 && error.errors[0].message;
       toast.error(
-        error.response?.data?.message || zodError || "error in fetching post api"
+        error.response?.data?.message ||
+          zodError ||
+          "error in fetching post api"
       );
 
       console.log(
@@ -80,7 +82,9 @@ export default function AuthForm(prop) {
   return (
     <div>
       <div className="bg-slate-800 border border-orange-600 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-lg bg-opacity-30 relative">
-        <h1 className="text-4xl font-bold text-center">{prop.formName}</h1>
+        <h1 className="text-4xl font-bold text-center text-orange-500">
+          Admin {prop.formName}
+        </h1>
         <form onSubmit={handleSubmit}>
           <div className="relative my-4">
             <input
