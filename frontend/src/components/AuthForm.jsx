@@ -138,7 +138,7 @@ export default function AuthForm(prop) {
             )}
           </button>
           <p className="mt-6">
-            Already {prop.formName} ?{" "}
+            Don`t have an account ?{" "}
             <NavLink to={prop.goTo} className="text-orange-500">
               {prop.navigate}
             </NavLink>
