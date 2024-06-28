@@ -64,7 +64,7 @@ export default function AuthForm(prop) {
     } catch (error) {
       const zodError = error?.errors?.length > 0 && error.errors[0].message;
       toast.error(
-        error.response?.data?.message || zodError || "error in fetchig post api"
+        error.response?.data?.message || zodError || "error in fetching post api"
       );
 
       console.log(
