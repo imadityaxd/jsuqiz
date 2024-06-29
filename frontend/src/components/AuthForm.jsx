@@ -2,7 +2,8 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { userSchema } from "../validations/userSchema";
 import axios from "axios";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
+import { showToast } from "../utils/toastUtils";
 import { LoaderCircle } from "lucide-react";
 // import { AuthContext } from "../context/AuthContext";
 
@@ -43,13 +44,7 @@ export default function AuthForm(prop) {
 
       const result = response.data;
 
-      toast.success(result.message, {
-        style: {
-          minWidth: "300px",
-          minHeight: "50px",
-          fontSize: "18px",
-        },
-      });
+      showToast(result.message, "success");
       // console.log("clearing data");
       setUserData({
         username: "",
@@ -70,10 +65,11 @@ export default function AuthForm(prop) {
       console.log("api result ", result);
     } catch (error) {
       const zodError = error?.errors?.length > 0 && error.errors[0].message;
-      toast.error(
+      showToast(
         error.response?.data?.message ||
           zodError ||
-          "error in fetching post api"
+          "error in fetching post api",
+        "error"
       );
 
       console.log(

@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { toast } from "react-hot-toast";
+
 import { LoaderCircle } from "lucide-react";
+import { showToast } from "../utils/toastUtils";
 
 const PlayQuiz = () => {
   const [questions, setQuestions] = useState([]);
@@ -19,17 +20,7 @@ const PlayQuiz = () => {
       setIsCorrect(null); // Reset correctness state
       setWrongGuesses([]); // Reset wrong guesses
     } else {
-      toast.success("Quiz is completed!", {
-        style: {
-          border: "1px solid #713200",
-          padding: "16px",
-          color: "#713200",
-        },
-        iconTheme: {
-          primary: "#713200",
-          secondary: "#FFFAEE",
-        },
-      });
+      showToast("Quiz is completed!", "success");
     }
   }, [currentQuestionIndex, questions.length]);
 
@@ -58,10 +49,12 @@ const PlayQuiz = () => {
     setSelectedOption(option);
 
     if (option === currentQuestion.answer) {
-      toast.success("Congrats! Your answer is correct.");
+   
+      showToast('Congrats! Your answer is correct.', 'success');
       setIsCorrect(true);
     } else {
-      toast.error("Wrong answer. Please try again.");
+   
+      showToast('Wrong answer. Please try again.', 'error'); 
       setIsCorrect(false);
       setWrongGuesses((prev) => [...prev, option]);
     }
@@ -103,14 +96,18 @@ const PlayQuiz = () => {
             <button
               key={index}
               onClick={() => handleOptionClick(option, currentQuestion)}
-              className={`w-full py-2 px-4 rounded-lg transition-colors ${
+              className={`relative w-full py-2 px-4 rounded-lg transition-colors ${
                 selectedOption === option
                   ? isCorrect
                     ? "bg-green-500 text-white animate-correct" // Lighter green for correct answer
                     : "bg-red-500 text-white animate-wrong" // Lighter red for wrong answer
                   : wrongGuesses.includes(option)
                   ? "bg-red-500 text-white" // Keep wrong guesses red
-                  : "bg-blue-500 text-white hover:bg-blue-600" // Soft blue for unselected options
+                  : "bg-blue-500 text-white" // Soft blue for unselected options
+              } ${
+                isCorrect && selectedOption !== option
+                  ? "cursor-not-allowed"
+                  : ""
               }`}
               disabled={isCorrect && selectedOption !== option} // Disable all buttons after selecting the correct one
             >

@@ -9,22 +9,14 @@
     color-scheme: dark;
 }
 
-@keyframes correct {
-    0% { background-color: #10b981; }
-    50% { background-color: #34d399; }
-    100% { background-color: #10b981; }
-  }
-  
-  @keyframes wrong {
-    0% { background-color: #ef4444; }
-    50% { background-color: #f87171; }
-    100% { background-color: #ef4444; }
-  }
-  
-  .animate-correct {
-    animation: correct 0.5s ease-in-out;
-  }
-  
-  .animate-wrong {
-    animation: wrong 0.5s ease-in-out;
-  }
+/* Disable text selection on the entire website */
+body {
+    user-select: none;
+    /* Standard syntax */
+    -webkit-user-select: none;
+    /* For Chrome, Safari, and Opera */
+    -moz-user-select: none;
+    /* For Firefox */
+    -ms-user-select: none;
+    /* For Internet Explorer/Edge */
+}

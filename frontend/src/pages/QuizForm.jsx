@@ -1,7 +1,8 @@
 // src/QuizForm.js
 import axios from "axios";
 import { useState } from "react";
-import toast from "react-hot-toast";
+
+import { showToast } from "../utils/toastUtils";
 import { LoaderCircle } from "lucide-react";
 import { questionsSchema } from "../validations/questionsSchema";
 
@@ -50,13 +51,7 @@ export const QuizForm = () => {
 
       const result = response.data;
 
-      toast.success(result.msg, {
-        style: {
-          minWidth: "300px",
-          minHeight: "50px",
-          fontSize: "18px",
-        },
-      });
+      showToast(result.msg, "success");
 
       setQuestionData({
         question: "",
@@ -70,8 +65,11 @@ export const QuizForm = () => {
       console.log(result);
     } catch (error) {
       const zodError = error?.errors?.length > 0 && error.errors[0].message;
-      toast.error(
-        error.response?.data?.message || zodError || "error in fetchig post api"
+      showToast(
+        error.response?.data?.message ||
+          zodError ||
+          "error in fetchig post api",
+        "error"
       );
 
       console.log(
