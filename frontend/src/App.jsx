@@ -16,7 +16,14 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/quizform" element={<QuizForm />} />
+          <Route
+            path="/quizform"
+            element={
+              <ProtectiveRoutes>
+                <QuizForm />
+              </ProtectiveRoutes>
+            }
+          />
           <Route path="/playquiz" element={<PlayQuiz />} />
           <Route
             path="/signup"
@@ -42,7 +49,7 @@ function App() {
               </ProtectiveRoutes>
             }
           />
-        <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

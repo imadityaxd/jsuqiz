@@ -13,5 +13,9 @@ export default function ProtectiveRoutes({ children }) {
   if (isAuthenticated && restrictedPaths.includes(location.pathname)) {
     return <Navigate to="/dashboard" />;
   }
+
+  if (!isAuthenticated && location.pathname == "/quizform") {
+    return <Navigate to="/login" />;
+  }
   return children;
 }

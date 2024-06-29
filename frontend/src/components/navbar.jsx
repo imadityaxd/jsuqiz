@@ -35,7 +35,7 @@ const Navbar = () => {
             <img src={logo} alt="logo" className="h-10 w-10 mr-2" />
             <span className="text-xl tracking-tight">JS Quiz</span>
           </NavLink>
-          <ul className="hidden lg:flex ml-14 space-x-12 text-lg">
+          <ul className="hidden sm:flex ml-14 space-x-12 text-lg">
             <li>
               <NavLink
                 to="/"
@@ -57,20 +57,22 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/quizform"
-                className={({ isActive }) =>
-                  isActive ? "text-orange-500" : "text-white"
-                }
-              >
-                Add Quiz
-              </NavLink>
+              {isAuthenticated && (
+                <NavLink
+                  to="/quizform"
+                  className={({ isActive }) =>
+                    isActive ? "text-orange-500" : "text-white"
+                  }
+                >
+                  Add Quiz
+                </NavLink>
+              )}
             </li>
           </ul>
 
-          <div className="hidden lg:flex justify-center space-x-12 items-center">
+          <div className="hidden sm:flex justify-center space-x-12 items-center">
             {isAuthenticated ? (
-              <NavLink to="/dashboard" className="py-2 px-3 border rounded-md">
+              <NavLink to="/dashboard" className="py-2 px-1 ml-2 border rounded-md">
                 Dashboard
               </NavLink>
             ) : (
@@ -83,7 +85,7 @@ const Navbar = () => {
             )}
           </div>
 
-          <div className="lg:hidden flex flex-col justify-end">
+          <div className="sm:hidden flex flex-col justify-end">
             <button onClick={toggleNavbar}>
               {openMenu ? <X /> : <Menu />}
             </button>
@@ -93,7 +95,7 @@ const Navbar = () => {
       {openMenu && (
         <div
           ref={menuRef}
-          className="fixed right-0 z-20 bg-neutral-900 w-full p-12 flex flex-col justify-center items-center lg:hidden"
+          className="fixed right-0 z-20 bg-neutral-900 w-full p-12 flex flex-col justify-center items-center"
         >
           <ul className="">
             <li className="py-4">
@@ -117,14 +119,16 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="py-4">
-              <NavLink
-                to="/quizform"
-                className={({ isActive }) =>
-                  isActive ? "text-orange-500" : "text-white"
-                }
-              >
-                Add Quiz
-              </NavLink>
+              {isAuthenticated && (
+                <NavLink
+                  to="/quizform"
+                  className={({ isActive }) =>
+                    isActive ? "text-orange-500" : "text-white"
+                  }
+                >
+                  Add Quiz
+                </NavLink>
+              )}
             </li>
           </ul>
           <div className="flex space-x-6">
