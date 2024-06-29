@@ -90,7 +90,11 @@ const Navbar = () => {
 
           <div className="sm:hidden flex flex-col justify-end">
             <button onClick={toggleNavbar} className="text-white">
-              {openMenu ? <X /> : <Menu />}
+              {openMenu ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -101,6 +105,12 @@ const Navbar = () => {
           openMenu ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
         }`}
       >
+        <button
+          onClick={toggleNavbar}
+          className="absolute top-4 right-4 text-white"
+        >
+          <X className="w-6 h-6" />
+        </button>
         <ul className="">
           <li className="py-4">
             <NavLink

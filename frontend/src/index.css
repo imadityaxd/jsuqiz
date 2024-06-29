@@ -9,16 +9,16 @@
     color-scheme: dark;
 }
 
-/* Disable text selection on the entire website */
+
 body {
     user-select: none;
-    /* Standard syntax */
+
     -webkit-user-select: none;
-    /* For Chrome, Safari, and Opera */
+
     -moz-user-select: none;
-    /* For Firefox */
+
     -ms-user-select: none;
-    /* For Internet Explorer/Edge */
+
 }
 
 @keyframes correct {
@@ -51,34 +51,33 @@ body {
 
 .animate-correct {
     animation: correct 0.5s ease-in-out;
-}
+}translate-y-0 
 
 .animate-wrong {
     animation: wrong 0.5s ease-in-out;
 }
 
 /* Styles for sliding effect from top to bottom */
-.transition-transform {
+/* .transition-transform {
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  }
-  
-  .transform {
+} */
+/* 
+.transform {
     transform: translateY(0);
-  }
-  
-  .-translate-y-full {
-    transform: translateY(-100%); /* Move the menu completely off the top of the viewport */
-  }
-  
-  .translate-y-0 {
-    transform: translateY(0); /* Menu at its normal position */
-  }
-  
-  .opacity-100 {
+}
+
+.-translate-y-full {
+    transform: translateY(-100%);
+}
+
+.translate-y-0 {
+    transform: translateY(0);
+}
+
+.opacity-100 {
     opacity: 1;
-  }
-  
-  .opacity-0 {
+}
+
+.opacity-0 {
     opacity: 0;
-  }
-  
+} */
