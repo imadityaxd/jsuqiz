@@ -8,3 +8,23 @@
     font-family: "Poppins", sans-serif;
     color-scheme: dark;
 }
+
+@keyframes correct {
+    0% { background-color: #10b981; }
+    50% { background-color: #34d399; }
+    100% { background-color: #10b981; }
+  }
+  
+  @keyframes wrong {
+    0% { background-color: #ef4444; }
+    50% { background-color: #f87171; }
+    100% { background-color: #ef4444; }
+  }
+  
+  .animate-correct {
+    animation: correct 0.5s ease-in-out;
+  }
+  
+  .animate-wrong {
+    animation: wrong 0.5s ease-in-out;
+  }

@@ -8,16 +8,18 @@ const PlayQuiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const [timeLeft, setTimeLeft] = useState(30); // Added state for timer
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [wrongGuesses, setWrongGuesses] = useState([]);
 
-  // Move nextBtn definition here
   const nextBtn = useCallback(() => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      // setTimeLeft(30); // Reset timer for the new question
+      setSelectedOption(null); // Reset selected option
+      setIsCorrect(null); // Reset correctness state
+      setWrongGuesses([]); // Reset wrong guesses
     } else {
       toast.success("Quiz is completed!", {
-        // Updated completion message
         style: {
           border: "1px solid #713200",
           padding: "16px",
@@ -29,19 +31,18 @@ const PlayQuiz = () => {
         },
       });
     }
-  }, [currentQuestionIndex, questions.length]); // Added dependencies for nextBtn
+  }, [currentQuestionIndex, questions.length]);
 
-  // Fetch questions from the API
   const fetchQuestions = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios.get("http://localhost:5000/api/quiz");
       setQuestions(response.data);
     } catch (error) {
-      setError("Error fetching questions. Please try again later."); // Set error message
+      setError("Error fetching questions. Please try again later.");
       console.error("Error fetching questions:", error);
     } finally {
-      setLoading(false); // Ensure loading state is turned off
+      setLoading(false);
     }
   }, []);
 
@@ -49,24 +50,20 @@ const PlayQuiz = () => {
     fetchQuestions();
   }, [fetchQuestions]);
 
-  // Timer effect
-  // useEffect(() => {
-  //   if (timeLeft === 0) {
-  //     nextBtn(); // Move to the next question when time is up
-  //   }
-  //   const timerId = setInterval(() => {
-  //     setTimeLeft((prevTime) => prevTime - 1);
-  //   }, 1000);
-
-  //   return () => clearInterval(timerId);
-  // }, [timeLeft, nextBtn]);
-
-  // Handle the option click
   const handleOptionClick = (option, currentQuestion) => {
+    if (selectedOption === currentQuestion.answer) {
+      return;
+    }
+
+    setSelectedOption(option);
+
     if (option === currentQuestion.answer) {
-      toast.success("Congrats! Your answer is correct."); // Updated success message
+      toast.success("Congrats! Your answer is correct.");
+      setIsCorrect(true);
     } else {
-      toast.error("Wrong answer. Please try again."); // Updated error message
+      toast.error("Wrong answer. Please try again.");
+      setIsCorrect(false);
+      setWrongGuesses((prev) => [...prev, option]);
     }
   };
 
@@ -98,9 +95,6 @@ const PlayQuiz = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className="bg-gray-800 text-white p-6 rounded-lg shadow-lg sm:max-w-lg w-full border border-orange-700 shadow-orange-400">
-        {/* <div className="text-center text-gray-400 mb-4">
-          Time left: {timeLeft}s
-        </div> */}
         <h2 className="text-2xl font-bold mb-4 overflow-hidden">
           Q{currentQuestionIndex + 1}. {currentQuestion.question}
         </h2>
@@ -109,7 +103,16 @@ const PlayQuiz = () => {
             <button
               key={index}
               onClick={() => handleOptionClick(option, currentQuestion)}
-              className="w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 transition-colors"
+              className={`w-full py-2 px-4 rounded-lg transition-colors ${
+                selectedOption === option
+                  ? isCorrect
+                    ? "bg-green-500 text-white animate-correct" // Lighter green for correct answer
+                    : "bg-red-500 text-white animate-wrong" // Lighter red for wrong answer
+                  : wrongGuesses.includes(option)
+                  ? "bg-red-500 text-white" // Keep wrong guesses red
+                  : "bg-blue-500 text-white hover:bg-blue-600" // Soft blue for unselected options
+              }`}
+              disabled={isCorrect && selectedOption !== option} // Disable all buttons after selecting the correct one
             >
               {option}
             </button>
