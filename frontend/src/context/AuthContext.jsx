@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const [cookies, , removeCookie] = useCookies(["token"]);
 
   useEffect(() => {
-    console.log("Current cookies:", cookies);
     if (cookies.token) {
       console.log("cookie value in token:", cookies.token);
       setIsAuthenticated(true);
@@ -19,6 +18,7 @@ export const AuthProvider = ({ children }) => {
       console.log("No token found in cookie");
       setIsAuthenticated(false);
     }
+    console.log("isAuthenticated:", isAuthenticated);
   }, [cookies]);
 
   //   const login = (token) => {

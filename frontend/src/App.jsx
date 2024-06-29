@@ -6,6 +6,8 @@ import PlayQuiz from "./pages/PlayQuiz";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
+import ProtectiveRoutes from "./utils/ProtectiveRoutes";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -16,12 +18,33 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/quizform" element={<QuizForm />} />
           <Route path="/playquiz" element={<PlayQuiz />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route
+            path="/signup"
+            element={
+              <ProtectiveRoutes>
+                <SignUp />
+              </ProtectiveRoutes>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <ProtectiveRoutes>
+                <Login />
+              </ProtectiveRoutes>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectiveRoutes>
+                <AdminDashboard />
+              </ProtectiveRoutes>
+            }
+          />
+        <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-     
     </>
   );
 }
