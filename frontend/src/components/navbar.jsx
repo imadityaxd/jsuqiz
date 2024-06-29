@@ -8,7 +8,7 @@ const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const { isAuthenticated } = useContext(AuthContext);
   const toggleNavbar = () => {
-    setOpenMenu(!openMenu);
+    setOpenMenu((prev) => !prev);
   };
 
   let menuRef = useRef();
@@ -72,7 +72,10 @@ const Navbar = () => {
 
           <div className="hidden sm:flex justify-center space-x-12 items-center">
             {isAuthenticated ? (
-              <NavLink to="/dashboard" className="py-2 px-1 ml-2 border rounded-md">
+              <NavLink
+                to="/dashboard"
+                className="py-2 px-1 ml-2 border rounded-md"
+              >
                 Dashboard
               </NavLink>
             ) : (
@@ -86,67 +89,67 @@ const Navbar = () => {
           </div>
 
           <div className="sm:hidden flex flex-col justify-end">
-            <button onClick={toggleNavbar}>
+            <button onClick={toggleNavbar} className="text-white">
               {openMenu ? <X /> : <Menu />}
             </button>
           </div>
         </div>
       </div>
-      {openMenu && (
-        <div
-          ref={menuRef}
-          className="fixed right-0 z-20 bg-neutral-900 w-full p-12 flex flex-col justify-center items-center"
-        >
-          <ul className="">
-            <li className="py-4">
+      <div
+        ref={menuRef}
+        className={`fixed top-0 right-0 z-20 bg-neutral-900 w-full p-12 flex flex-col justify-center items-center transform transition-transform duration-300 ease-in-out ${
+          openMenu ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+        }`}
+      >
+        <ul className="">
+          <li className="py-4">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "text-orange-500" : "text-white"
+              }
+            >
+              Home
+            </NavLink>
+          </li>
+          <li className="py-4">
+            <NavLink
+              to="/playquiz"
+              className={({ isActive }) =>
+                isActive ? "text-orange-500" : "text-white"
+              }
+            >
+              Play Quiz
+            </NavLink>
+          </li>
+          <li className="py-4">
+            {isAuthenticated && (
               <NavLink
-                to="/"
+                to="/quizform"
                 className={({ isActive }) =>
                   isActive ? "text-orange-500" : "text-white"
                 }
               >
-                Home
-              </NavLink>
-            </li>
-            <li className="py-4">
-              <NavLink
-                to="/playquiz"
-                className={({ isActive }) =>
-                  isActive ? "text-orange-500" : "text-white"
-                }
-              >
-                Play Quiz
-              </NavLink>
-            </li>
-            <li className="py-4">
-              {isAuthenticated && (
-                <NavLink
-                  to="/quizform"
-                  className={({ isActive }) =>
-                    isActive ? "text-orange-500" : "text-white"
-                  }
-                >
-                  Add Quiz
-                </NavLink>
-              )}
-            </li>
-          </ul>
-          <div className="flex space-x-6">
-            {isAuthenticated ? (
-              <NavLink to="/dashboard" className="py-2 px-3 rounded-md">
-                Dashboard
-              </NavLink>
-            ) : (
-              <NavLink
-                to="/login"
-                className="bg-gradient-to-r from-orange-500 to-orange-800 py-2 px-3 rounded-md"
-              >
-                Admin Login
+                Add Quiz
               </NavLink>
             )}
-          </div>
+          </li>
+        </ul>
+        <div className="flex space-x-6">
+          {isAuthenticated ? (
+            <NavLink to="/dashboard" className="py-2 px-3 rounded-md">
+              Dashboard
+            </NavLink>
+          ) : (
+            <NavLink
+              to="/login"
+              className="bg-gradient-to-r from-orange-500 to-orange-800 py-2 px-3 rounded-md"
+            >
+              Admin Login
+            </NavLink>
+          )}
         </div>
-      )}
+      </div>
     </nav>
   );
 };
