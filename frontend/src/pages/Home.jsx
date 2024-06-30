@@ -39,6 +39,9 @@ export const Home = () => {
         </div>
       </div>
       <FeaturesSection />
+      <footer className="py-6">
+        <h1 className="text-center text-gray-400">&copy; by @cykoravish & @xdcoder.xyz</h1>
+      </footer>
     </div>
   );
 };
