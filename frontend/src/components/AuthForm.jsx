@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { userSchema } from "../validations/userSchema";
 import axios from "axios";
@@ -6,8 +6,11 @@ import axios from "axios";
 import { showToast } from "../utils/toastUtils";
 import { LoaderCircle } from "lucide-react";
 // import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 export default function AuthForm(prop) {
+  const { setUsername } = useContext(AuthContext);
+
   const navigate = useNavigate();
   // const { login } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
@@ -43,6 +46,8 @@ export default function AuthForm(prop) {
       );
 
       const result = response.data;
+      console.log("resu: ", result);
+      console.log(result.user.username);
 
       showToast(result.message, "success");
       // console.log("clearing data");
@@ -60,6 +65,7 @@ export default function AuthForm(prop) {
       if (prop.api === "register") {
         navigate("/login"); // Redirect to login page after signup
       } else if (prop.api === "login") {
+        setUsername(result.user.username);
         navigate("/dashboard"); // Redirect to a different page after login
       }
       console.log("api result ", result);

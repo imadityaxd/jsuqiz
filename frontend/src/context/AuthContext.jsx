@@ -9,6 +9,9 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [cookies, , removeCookie] = useCookies(["token"]);
+  const [username, setUsername] = useState(() => {
+    return localStorage.getItem("username") || "";
+  });
 
   useEffect(() => {
     if (cookies.token) {
@@ -19,13 +22,15 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
     }
     console.log("isAuthenticated:", isAuthenticated);
-  }, [cookies]);
+  }, [cookies, isAuthenticated]);
 
-  //   const login = (token) => {
-  //     console.log("Setting token:", token);
-  //     // setCookie("token", token, { path: "/", sameSite: "Strict" });
-  //     setIsAuthenticated(true);
-  //   };
+  useEffect(() => {
+    if (username) {
+      localStorage.setItem("username", username);
+    } else {
+      localStorage.removeItem("username");
+    }
+  }, [username]);
 
   const logout = () => {
     console.log("Removing token");
@@ -34,7 +39,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, logout, username, setUsername }}
+    >
       {children}
     </AuthContext.Provider>
   );
