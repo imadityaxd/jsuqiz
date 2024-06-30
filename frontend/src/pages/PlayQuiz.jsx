@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { LoaderCircle } from "lucide-react";
 import { showToast } from "../utils/toastUtils";
+import Result from "../components/Result";
 
 const PlayQuiz = () => {
   const [questions, setQuestions] = useState([]);
@@ -83,8 +84,14 @@ const PlayQuiz = () => {
 
   const currentQuestion = questions[currentQuestionIndex];
 
+  if (currentQuestionIndex + 1 === questions.length) {
+    return <Result questions={questions} />;
+  }
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-custom-bg bg-cover">
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 p-6 bg-custom-bg bg-cover">
+      <h2>
+        {currentQuestionIndex + 1} of {questions.length}
+      </h2>
       <div className="bg-gray-800 text-white p-6 rounded-lg shadow-lg sm:max-w-lg w-full border border-orange-700 shadow-orange-400">
         <h2 className="text-2xl font-bold mb-4 overflow-hidden">
           Q{currentQuestionIndex + 1}. {currentQuestion.question}
