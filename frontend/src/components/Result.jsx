@@ -6,7 +6,7 @@ export default function Result(prop) {
     <div className="px-14 py-12">
       <div className="">
         {prop.questions.map((question, index) => (
-          <>
+          <div key={index}>
             <h2 className="text-2xl text-orange-500 py-1">{`Q${index + 1}. ${
               question.question
             }`}</h2>
@@ -14,7 +14,7 @@ export default function Result(prop) {
               <span className="text-orange-500">Ans.</span>
               {` ${question.answer}`}
             </h3>
-          </>
+          </div>
         ))}
       </div>
       <div className="flex w-full gap-4">

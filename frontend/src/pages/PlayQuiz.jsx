@@ -13,6 +13,7 @@ const PlayQuiz = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
   const [wrongGuesses, setWrongGuesses] = useState([]);
+  const [quizCompleted, setQuizCompleted] = useState(false);
 
   const nextBtn = useCallback(() => {
     if (currentQuestionIndex < questions.length - 1) {
@@ -22,6 +23,7 @@ const PlayQuiz = () => {
       setWrongGuesses([]); // Reset wrong guesses
     } else {
       showToast("Quiz is completed!", "success");
+      setQuizCompleted(true);
     }
   }, [currentQuestionIndex, questions.length]);
 
@@ -67,6 +69,15 @@ const PlayQuiz = () => {
       </div>
     );
   }
+  if (questions.length === 0) {
+    return (
+      <div className="flex flex-col justify-center items-center h-screen space-y-4">
+        <p className="text-xl text-gray-400 p-6 text-center">
+          No Data Quiz Found. please Login as Admin and as quiz
+        </p>
+      </div>
+    );
+  }
 
   if (error) {
     return (
@@ -83,8 +94,8 @@ const PlayQuiz = () => {
   }
 
   const currentQuestion = questions[currentQuestionIndex];
-
-  if (currentQuestionIndex + 1 === questions.length) {
+  console.log(currentQuestionIndex, questions.length - 1);
+  if (quizCompleted) {
     return <Result questions={questions} />;
   }
   return (
@@ -94,10 +105,10 @@ const PlayQuiz = () => {
       </h2>
       <div className="bg-gray-800 text-white p-6 rounded-lg shadow-lg sm:max-w-lg w-full border border-orange-700 shadow-orange-400">
         <h2 className="text-2xl font-bold mb-4 overflow-hidden">
-          Q{currentQuestionIndex + 1}. {currentQuestion.question}
+          Q{currentQuestionIndex + 1}. {currentQuestion?.question}
         </h2>
         <div className="space-y-4">
-          {currentQuestion.options.map((option, index) => (
+          {currentQuestion?.options.map((option, index) => (
             <button
               key={index}
               onClick={() => handleOptionClick(option, currentQuestion)}

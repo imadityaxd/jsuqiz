@@ -21,7 +21,9 @@ const Dashboard = () => {
 
   const deleteQuiz = async (quizId) => {
     try {
-      await axios.delete(`/api/quiz/${quizId}`); // Replace with your API endpoint
+      await axios.delete(
+        `http://localhost:5000/api/quiz/delete-quiz/${quizId}`
+      ); // Replace with your API endpoint
       setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));
       setTotalQuizzes(totalQuizzes - 1);
     } catch (error) {
@@ -40,39 +42,36 @@ const Dashboard = () => {
       </div>
       <div className="bg-gray-800 p-4 rounded-lg shadow-md">
         <h2 className="text-xl font-bold text-white mb-4">Manage Quizzes</h2>
-        <table className="min-w-full bg-gray-800">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 bg-gray-700 text-left">Title</th>
-              <th className="py-2 px-4 bg-gray-700 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {quizzes.map((quiz) => (
-              <tr key={quiz._id}>
-                <td className="py-2 px-4 border-t border-gray-700">
-                  {quiz.title}
-                </td>
-                <td className="py-2 px-4 border-t border-gray-700">
-                  <button
-                    className="bg-orange-500 text-white py-1 px-3 rounded-lg mr-2"
-                    onClick={() => {
-                      /* Add functionality to read/update the quiz */
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="bg-red-500 text-white py-1 px-3 rounded-lg"
-                    onClick={() => deleteQuiz(quiz._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-gray-800">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 bg-gray-700 text-left">Question</th>
+                <th className="py-2 px-4 bg-gray-700 text-left">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {quizzes.map((quiz, index) => (
+                <tr key={quiz._id}>
+                  <td className="py-2 px-4 border-t border-gray-700">
+                    <span className="font-bold text-orange-500">
+                      {index + 1}.{" "}
+                    </span>
+                    {quiz.question}
+                  </td>
+                  <td className="py-2 px-4 border-t border-gray-700">
+                    <button
+                      className="bg-red-500 text-white py-1 px-3 rounded-lg"
+                      onClick={() => deleteQuiz(quiz._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
