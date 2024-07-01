@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import quiz1 from "../assets/quiz1.png";
 import quiz2 from "../assets/quiz2.png";
 import FeaturesSection from "../components/Features";
@@ -39,8 +39,21 @@ export const Home = () => {
         </div>
       </div>
       <FeaturesSection />
+      <div className="flex justify-center">
+        <a
+          href="https://www.instagram.com/web________developer"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-orange-500 underline hover:text-orange-700"
+        >
+          Contact the Owner here
+        </a>
+      </div>
+
       <footer className="py-6">
-        <h1 className="text-center text-gray-400">&copy; by @cykoravish & @xdcoder.xyz</h1>
+        <h1 className="text-center text-gray-400">
+          &copy;copyrighted by @cykoravish & @xdcoder.xyz
+        </h1>
       </footer>
     </div>
   );
