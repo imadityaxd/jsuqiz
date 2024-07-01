@@ -29,11 +29,13 @@ export const Home = () => {
           <img
             className="rounded-lg w-[22rem] h-[15rem] border border-orange-700 shadow-sm shadow-orange-400 mx-2 my-4"
             src={quiz1}
+            loading="lazy"
             alt="img"
           />
           <img
             className="rounded-lg w-[22rem] h-[15rem] border border-orange-700 shadow-sm shadow-orange-400 mx-2 my-4"
             src={quiz2}
+            loading="lazy"
             alt="img"
           />
         </div>
@@ -41,16 +43,16 @@ export const Home = () => {
       <FeaturesSection />
 
       <footer className="py-6">
-      <section className="flex justify-center py-4">
-        <a
-          href="https://www.instagram.com/web________developer"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-orange-500 underline hover:text-orange-700"
-        >
-          Contact the Owner here
-        </a>
-      </section>
+        <section className="flex justify-center py-4">
+          <a
+            href="https://www.instagram.com/web________developer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-orange-500 underline hover:text-orange-700"
+          >
+            Contact the Owner here
+          </a>
+        </section>
         <h1 className="text-center text-gray-400">
           &copy;copyrighted by @cykoravish & @xdcoder.xyz
         </h1>

@@ -32,7 +32,7 @@ const Navbar = () => {
       <div className="container px-4 mx-auto relative lg:text-sm">
         <div className="flex justify-between items-center">
           <NavLink to="/" className="flex items-center flex-shrink-0">
-            <img src={logo} alt="logo" className="h-10 w-10 mr-2" />
+            <img src={logo} alt="logo" loading="lazy" className="h-10 w-10 mr-2" />
             <span className="text-xl tracking-tight">JS Quiz</span>
           </NavLink>
           <ul className="hidden sm:flex ml-14 space-x-12 text-lg">
