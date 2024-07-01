@@ -7,9 +7,23 @@ import { Navigate } from "react-router-dom";
 const Dashboard = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [totalQuizzes, setTotalQuizzes] = useState(0);
+  const [verifyPassword, setVerifyPassword] = useState("");
+  const [ownersVerifiedUser, setOwnersVerifiedUser] = useState(false);
+
   const { logout, username } = useContext(AuthContext);
-  const ownersPassword = "cykoravish";
-  console.log("username:", username);
+
+  function verifyUser() {
+    if (verifyPassword === "cykoravish" || verifyPassword === "xdcoder") {
+      setOwnersVerifiedUser(true);
+      showToast("you can delete question now", "success");
+    } else {
+      showToast(
+        "incorrect password. Please get the password from the owner. Owners instagram: @xdcoder.xyz or @cykoravish",
+        "success"
+      );
+    }
+  }
+
   function logoutHandler() {
     logout();
     showToast("Logout successfully", "success");
@@ -32,12 +46,19 @@ const Dashboard = () => {
 
   const deleteQuiz = async (quizId) => {
     try {
-      await axios.delete(
-        `http://localhost:5000/api/quiz/delete-quiz/${quizId}`
-      ); // Replace with your API endpoint
-      setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));
-      setTotalQuizzes(totalQuizzes - 1);
-      showToast("Question deleted", "success");
+      if (ownersVerifiedUser) {
+        await axios.delete(
+          `http://localhost:5000/api/quiz/delete-quiz/${quizId}`
+        ); // Replace with your API endpoint
+        setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));
+        setTotalQuizzes(totalQuizzes - 1);
+        showToast("Question deleted", "success");
+      } else {
+        showToast(
+          "you need to verify before deleting Quiz questions. Get the password from the owner. Owners instagram: @xdcoder.xyz or @cykoravish",
+          "error"
+        );
+      }
     } catch (error) {
       console.error("Error deleting quiz:", error);
       showToast("error in deleting question", "error");
@@ -55,15 +76,24 @@ const Dashboard = () => {
       </div>
       <div className="bg-gray-800 p-4 rounded-lg shadow-md">
         <h2 className="text-xl font-bold text-white mb-4">Manage Questions</h2>
-        <div>
-          <input
-            type="text"
-            placeholder="Password"
-            name="password"
-            className="px-2 py-2 mb-3 bg-gray-700 text-white"
-          />
-          <button className="bg-orange-500 hover:bg-orange-600">Verify</button>
-        </div>
+        {!ownersVerifiedUser && (
+          <div className="mb-3 flex flex-wrap">
+            <input
+              type="text"
+              placeholder="Password"
+              name="password"
+              value={verifyPassword}
+              onChange={(e) => setVerifyPassword(e.target.value)}
+              className="px-2 py-2 bg-gray-700 text-white w-32"
+            />
+            <button
+              className="bg-orange-500 hover:bg-orange-600 px-2 py-2"
+              onClick={verifyUser}
+            >
+              Verify
+            </button>
+          </div>
+        )}
         <div className="overflow-x-auto">
           <table className="min-w-full bg-gray-800">
             <thead>
@@ -103,6 +133,7 @@ const Dashboard = () => {
           Logout
         </button>
       </div>
+      {console.log("verify: ", ownersVerifiedUser)}
     </div>
   );
 };

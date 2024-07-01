@@ -16,6 +16,20 @@ export const QuizForm = () => {
     option4: "",
     answer: "",
   });
+  const [verifyPassword, setVerifyPassword] = useState("");
+  const [ownersVerifiedUser, setOwnersVerifiedUser] = useState(false);
+
+  function verifyUser() {
+    if (verifyPassword === "cykoravish" || verifyPassword === "xdcoder") {
+      setOwnersVerifiedUser(true);
+      showToast("you can add question now", "success");
+    } else {
+      showToast(
+        "incorrect password. Please get the password from the owner. Owners instagram: @xdcoder.xyz or @cykoravish",
+        "success"
+      );
+    }
+  }
 
   function handleChange(e) {
     setQuestionData({
@@ -39,30 +53,34 @@ export const QuizForm = () => {
     try {
       const validatedData = questionsSchema.parse(quizData);
       console.log("validated data: ", validatedData);
-      const response = await axios.post(
-        "http://localhost:5000/api/quiz/add-quiz",
-        validatedData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
 
-      const result = response.data;
-
-      showToast(result.msg, "success");
-
-      setQuestionData({
-        question: "",
-        option1: "",
-        option2: "",
-        option3: "",
-        option4: "",
-        answer: "",
-      });
-
-      console.log(result);
+      if (ownersVerifiedUser) {
+        const response = await axios.post(
+          "http://localhost:5000/api/quiz/add-quiz",
+          validatedData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const result = response.data;
+        showToast(result.msg, "success");
+        setQuestionData({
+          question: "",
+          option1: "",
+          option2: "",
+          option3: "",
+          option4: "",
+          answer: "",
+        });
+        console.log(result);
+      } else {
+        showToast(
+          "you need to verify before adding questions to Quiz. Get the password from the owner. Owners instagram: @xdcoder.xyz or @cykoravish",
+          "error"
+        );
+      }
     } catch (error) {
       const zodError = error?.errors?.length > 0 && error.errors[0].message;
       showToast(
@@ -88,6 +106,24 @@ export const QuizForm = () => {
         className="space-y-4 border border-orange-700 shadow-orange-400 p-6 rounded-lg shadow-lg"
         onSubmit={handleSubmit}
       >
+        {!ownersVerifiedUser && (
+          <div className="mb-3 flex flex-wrap">
+            <input
+              type="text"
+              placeholder="Password"
+              name="password"
+              value={verifyPassword}
+              onChange={(e) => setVerifyPassword(e.target.value)}
+              className="px-2 py-2 bg-gray-700 text-white w-32"
+            />
+            <button
+              className="bg-orange-500 hover:bg-orange-600 px-2 py-2"
+              onClick={verifyUser}
+            >
+              Verify
+            </button>
+          </div>
+        )}
         <div>
           <label className="block text-orange-600 font-bold mb-2">
             Question
