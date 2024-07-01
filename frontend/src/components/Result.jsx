@@ -4,7 +4,7 @@ export default function Result(prop) {
   console.log("resul", prop.questions);
   return (
     <div className="px-14 py-12">
-      <div className="">
+      <div>
         {prop.questions.map((question, index) => (
           <div key={index}>
             <h2 className="text-2xl text-orange-500 py-1">{`Q${index + 1}. ${

@@ -1,12 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import quiz1 from "../assets/quiz1.png";
 import quiz2 from "../assets/quiz2.png";
 import FeaturesSection from "../components/Features";
 
 export const Home = () => {
   return (
-    <div className="max-w-7xl mx-auto pt-20 px-6">
-      <div className="flex flex-col items-center mt-6 lg:mt-20">
+    <main className="max-w-7xl mx-auto pt-20 px-6">
+      <section className="flex flex-col items-center mt-6 lg:mt-20">
         <h1 className="text-4xl sm:text-6xl lg:text-7xl text-center tracking-wide">
           Learn JavaScript
           <span className="bg-gradient-to-r from-orange-500 to-red-800 text-transparent bg-clip-text">
@@ -37,9 +37,11 @@ export const Home = () => {
             alt="img"
           />
         </div>
-      </div>
+      </section>
       <FeaturesSection />
-      <div className="flex justify-center">
+
+      <footer className="py-6">
+      <section className="flex justify-center py-4">
         <a
           href="https://www.instagram.com/web________developer"
           target="_blank"
@@ -48,13 +50,11 @@ export const Home = () => {
         >
           Contact the Owner here
         </a>
-      </div>
-
-      <footer className="py-6">
+      </section>
         <h1 className="text-center text-gray-400">
           &copy;copyrighted by @cykoravish & @xdcoder.xyz
         </h1>
       </footer>
-    </div>
+    </main>
   );
 };
