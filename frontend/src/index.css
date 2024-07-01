@@ -57,6 +57,35 @@ body {
     animation: wrong 0.5s ease-in-out;
 }
 
+
+/* global.css */
+
+/* For WebKit browsers */
+::-webkit-scrollbar {
+    width: 12px;  /* Width of the scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;  /* Background color of the track */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #ff9800;  /* Orange color for the scrollbar thumb */
+    border-radius: 6px;  /* Rounded corners */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e67e22;  /* Darker orange on hover */
+  }
+  
+  /* For Firefox */
+  html {
+    scrollbar-width: thin;  /* Width of the scrollbar */
+    scrollbar-color: #ff9800 #f1f1f1;  /* Orange color for the scrollbar thumb and track */
+  }
+  
+
+
 /* Styles for sliding effect from top to bottom */
 /* .transition-transform {
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
