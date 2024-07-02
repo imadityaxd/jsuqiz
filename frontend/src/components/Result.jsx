@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 export default function Result(prop) {
-  console.log("resul", prop.questions);
   return (
     <div className="px-14 py-12">
       <div>

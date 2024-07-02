@@ -8,7 +8,6 @@ const app = express();
 
 dotenv.config({ path: "./.env" });
 
-console.log("ORIGIN: ", process.env.CORS_ORIGIN);
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,

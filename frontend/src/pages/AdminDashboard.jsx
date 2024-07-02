@@ -133,7 +133,6 @@ const Dashboard = () => {
           Logout
         </button>
       </div>
-      {console.log("verify: ", ownersVerifiedUser)}
     </div>
   );
 };

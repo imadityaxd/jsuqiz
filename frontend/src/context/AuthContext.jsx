@@ -15,13 +15,10 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (cookies.token) {
-      console.log("cookie value in token:", cookies.token);
       setIsAuthenticated(true);
     } else {
-      console.log("No token found in cookie");
       setIsAuthenticated(false);
     }
-    console.log("isAuthenticated:", isAuthenticated);
   }, [cookies, isAuthenticated]);
 
   useEffect(() => {
@@ -33,7 +30,6 @@ export const AuthProvider = ({ children }) => {
   }, [username]);
 
   const logout = () => {
-    console.log("Removing token");
     removeCookie("token", { path: "/" });
     setIsAuthenticated(false);
   };

@@ -94,7 +94,6 @@ const PlayQuiz = () => {
   }
 
   const currentQuestion = questions[currentQuestionIndex];
-  console.log(currentQuestionIndex, questions.length - 1);
   if (quizCompleted) {
     return <Result questions={questions} />;
   }

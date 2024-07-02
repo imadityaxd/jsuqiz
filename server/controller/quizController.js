@@ -13,7 +13,6 @@ const home = async (req, res) => {
 const quiz = async (req, res) => {
   try {
     const { question, options, answer } = req.body;
-    console.log("test");
     const quizCreated = await Quiz.create({ question, options, answer });
 
 
@@ -31,7 +30,6 @@ const deleteQuiz = async (req, res) => {
   try {
     const quizId = req.params.id;
     const deletedQuiz = await Quiz.findByIdAndDelete(quizId);
-    console.log("deleteQuiz: ", deleteQuiz);
     if (!deletedQuiz) {
       return res.status(404).json({ message: "Quiz not found" });
     }

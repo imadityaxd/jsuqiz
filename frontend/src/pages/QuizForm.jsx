@@ -52,7 +52,6 @@ export const QuizForm = () => {
 
     try {
       const validatedData = questionsSchema.parse(quizData);
-      console.log("validated data: ", validatedData);
 
       if (ownersVerifiedUser) {
         const response = await axios.post(
@@ -74,7 +73,6 @@ export const QuizForm = () => {
           option4: "",
           answer: "",
         });
-        console.log(result);
       } else {
         showToast(
           "you need to verify before adding questions to Quiz. Get the password from the owner. Owners instagram: @xdcoder.xyz or @cykoravish",

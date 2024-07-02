@@ -46,8 +46,6 @@ export default function AuthForm(prop) {
       );
 
       const result = response.data;
-      console.log("resu: ", result);
-      console.log(result.user.username);
 
       showToast(result.message, "success");
  
@@ -64,7 +62,7 @@ export default function AuthForm(prop) {
         setUsername(result.user.username);
         navigate("/dashboard");
       }
-      console.log("api result ", result);
+    
     } catch (error) {
       const zodError = error?.errors?.length > 0 && error.errors[0].message;
       showToast(
