@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'custom-bg': "url('/src/assets/smoky.png')", // Adjust the path to your image
+        'custom-bg': "url('/src/assets/smoky.png')", 
       },
     },
   },

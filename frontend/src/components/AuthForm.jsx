@@ -2,23 +2,23 @@ import { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { userSchema } from "../validations/userSchema";
 import axios from "axios";
-// import toast from "react-hot-toast";
+
 import { showToast } from "../utils/toastUtils";
 import { LoaderCircle } from "lucide-react";
-// import { AuthContext } from "../context/AuthContext";
+
 import { AuthContext } from "../context/AuthContext";
 
 export default function AuthForm(prop) {
   const { setUsername } = useContext(AuthContext);
 
   const navigate = useNavigate();
-  // const { login } = useContext(AuthContext);
+ 
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     username: "",
     password: "",
   });
-  // console.log("user: ", userData);
+
 
   function handleChange(e) {
     setUserData({
@@ -33,7 +33,7 @@ export default function AuthForm(prop) {
 
     try {
       const validatedData = userSchema.parse(userData);
-      // console.log("validated data: ", validatedData);
+  
       const response = await axios.post(
         `http://localhost:5000/api/quiz/${prop.api}`,
         validatedData,
@@ -50,23 +50,19 @@ export default function AuthForm(prop) {
       console.log(result.user.username);
 
       showToast(result.message, "success");
-      // console.log("clearing data");
+ 
       setUserData({
         username: "",
         password: "",
       });
 
-      // // Set token in context
-      // if (result.token) {
-      //   login(result.token); // Added to set token in AuthContext
-      // }
-
-      // Navigate based on prop.api
+   
+   
       if (prop.api === "register") {
-        navigate("/login"); // Redirect to login page after signup
+        navigate("/login"); 
       } else if (prop.api === "login") {
         setUsername(result.user.username);
-        navigate("/dashboard"); // Redirect to a different page after login
+        navigate("/dashboard");
       }
       console.log("api result ", result);
     } catch (error) {

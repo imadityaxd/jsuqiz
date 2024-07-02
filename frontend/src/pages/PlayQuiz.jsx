@@ -18,9 +18,9 @@ const PlayQuiz = () => {
   const nextBtn = useCallback(() => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedOption(null); // Reset selected option
-      setIsCorrect(null); // Reset correctness state
-      setWrongGuesses([]); // Reset wrong guesses
+      setSelectedOption(null);
+      setIsCorrect(null);
+      setWrongGuesses([]);
     } else {
       showToast("Quiz is completed!", "success");
       setQuizCompleted(true);
@@ -115,17 +115,17 @@ const PlayQuiz = () => {
               className={`relative w-full py-2 px-4 rounded-lg transition-colors ${
                 selectedOption === option
                   ? isCorrect
-                    ? "bg-green-500 text-white animate-correct" // Lighter green for correct answer
-                    : "bg-red-500 text-white animate-wrong" // Lighter red for wrong answer
+                    ? "bg-green-500 text-white animate-correct"
+                    : "bg-red-500 text-white animate-wrong"
                   : wrongGuesses.includes(option)
-                  ? "bg-red-500 text-white" // Keep wrong guesses red
-                  : "bg-blue-500 text-white" // Soft blue for unselected options
+                  ? "bg-red-500 text-white"
+                  : "bg-blue-500 text-white"
               } ${
                 isCorrect && selectedOption !== option
                   ? "cursor-not-allowed"
                   : ""
               }`}
-              disabled={isCorrect && selectedOption !== option} // Disable all buttons after selecting the correct one
+              disabled={isCorrect && selectedOption !== option} 
             >
               {option}
             </button>

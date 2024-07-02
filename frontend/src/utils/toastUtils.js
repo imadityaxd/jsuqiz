@@ -1,10 +1,10 @@
-// src/utils/toastUtils.js
+
 
 import { toast } from "react-hot-toast";
 
-// Example of removing all toasts before showing a new one
+
 export const showToast = (message, type) => {
-  toast.remove(); // Removes all existing toasts
+  toast.remove(); 
   toast[type](message, {
     duration: 3000,
     style: {

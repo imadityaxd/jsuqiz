@@ -3,7 +3,7 @@ import { User } from "../quizModel/userModel.js";
 const registerUser = async (req, res) => {
   try {
     const { username, password } = req.body;
-    //console.log("email: ", email);
+   
 
     if ([username, password].some((field) => field?.trim() === "")) {
       return res
@@ -71,22 +71,14 @@ const loginUser = async (req, res) => {
     }
 
     let token = user.generateToken();
-    // user.token = token;
-    // await user.save({ validateBeforeSave: false });
-    // console.log("token: ", token);
-    // if (!token) {
-    //   return res.status(500).json({
-    //     success: false,
-    //     message: "error in token generation",
-    //   });
-    // }
+ 
 
     const loggedInUser = await User.findById(user._id).select(
       "-password"
     );
 
     const options = {
-      // httpOnly: true,
+  
       secure: true,
       sameSite: "Strict",
     };
@@ -104,36 +96,5 @@ const loginUser = async (req, res) => {
     });
   }
 };
-
-// const logoutUser = asyncHandler(async (req, res) => {
-//   await User.findByIdAndUpdate(
-//     req.user._id,
-//     {
-//       $unset: {
-//         refreshToken: 1, // this removes the field from document
-//       },
-//     },
-//     {
-//       new: true,
-//     }
-//   );
-
-//   const options = {
-//     httpOnly: true,
-//     secure: true,
-//   };
-
-//   return res
-//     .status(200)
-//     .clearCookie("accessToken", options)
-//     .clearCookie("refreshToken", options)
-//     .json(new ApiResponse(200, {}, "User logged Out"));
-// });
-
-// const getCurrentUser = asyncHandler(async (req, res) => {
-//   return res
-//     .status(200)
-//     .json(new ApiResponse(200, req.user, "User fetched successfully"));
-// });
 
 export { registerUser, loginUser };

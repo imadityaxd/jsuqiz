@@ -5,6 +5,6 @@ export async function dbConnect() {
     console.log("db connected successfully");
   } catch (error) {
     console.log("db failed to connect. Error: ", error);
-    process.exit(1);  //this method terminate the process with error code 1
+    process.exit(1);  
   }
 }

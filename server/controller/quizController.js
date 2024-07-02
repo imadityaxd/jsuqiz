@@ -1,6 +1,5 @@
 import { Quiz } from "../quizModel/quizModel.js";
 
-//get request for getting quizzes
 const home = async (req, res) => {
   try {
     const data = await Quiz.find();
@@ -10,14 +9,13 @@ const home = async (req, res) => {
   }
 };
 
-//upload logic
 
 const quiz = async (req, res) => {
   try {
     const { question, options, answer } = req.body;
     console.log("test");
     const quizCreated = await Quiz.create({ question, options, answer });
-    // console.log("new quiz: ", quizCreated);
+
 
     return res.status(201).json({
       msg: "quiz upload successful",

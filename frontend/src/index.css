@@ -57,56 +57,24 @@ body {
     animation: wrong 0.5s ease-in-out;
 }
 
-
-/* global.css */
-
-/* For WebKit browsers */
 ::-webkit-scrollbar {
-    width: 12px;  /* Width of the scrollbar */
+    width: 12px; 
   }
   
   ::-webkit-scrollbar-track {
-    background: #f1f1f1;  /* Background color of the track */
+    background: #f1f1f1; 
   }
   
   ::-webkit-scrollbar-thumb {
-    background: #ff9800;  /* Orange color for the scrollbar thumb */
-    border-radius: 6px;  /* Rounded corners */
+    background: #ff9800;  
+    border-radius: 6px;  
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: #e67e22;  /* Darker orange on hover */
+    background: #e67e22; 
   }
   
-  /* For Firefox */
   html {
-    scrollbar-width: thin;  /* Width of the scrollbar */
-    scrollbar-color: #ff9800 #f1f1f1;  /* Orange color for the scrollbar thumb and track */
+    scrollbar-width: thin; 
+    scrollbar-color: #ff9800 #f1f1f1;  
   }
-  
-
-
-/* Styles for sliding effect from top to bottom */
-/* .transition-transform {
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-} */
-/* 
-.transform {
-    transform: translateY(0);
-}
-
-.-translate-y-full {
-    transform: translateY(-100%);
-}
-
-.translate-y-0 {
-    transform: translateY(0);
-}
-
-.opacity-100 {
-    opacity: 1;
-}
-
-.opacity-0 {
-    opacity: 0;
-} */

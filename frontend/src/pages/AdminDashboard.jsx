@@ -36,7 +36,7 @@ const Dashboard = () => {
 
   const fetchQuizzes = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/quiz"); // Replace with your API endpoint
+      const response = await axios.get("http://localhost:5000/api/quiz");
       setQuizzes(response.data);
       setTotalQuizzes(response.data.length);
     } catch (error) {
@@ -49,7 +49,7 @@ const Dashboard = () => {
       if (ownersVerifiedUser) {
         await axios.delete(
           `http://localhost:5000/api/quiz/delete-quiz/${quizId}`
-        ); // Replace with your API endpoint
+        ); 
         setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));
         setTotalQuizzes(totalQuizzes - 1);
         showToast("Question deleted", "success");
