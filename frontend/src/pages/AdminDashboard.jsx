@@ -36,7 +36,7 @@ const Dashboard = () => {
 
   const fetchQuizzes = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/quiz");
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/quiz`);
       setQuizzes(response.data);
       setTotalQuizzes(response.data.length);
     } catch (error) {
@@ -48,7 +48,7 @@ const Dashboard = () => {
     try {
       if (ownersVerifiedUser) {
         await axios.delete(
-          `http://localhost:5000/api/quiz/delete-quiz/${quizId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/quiz/delete-quiz/${quizId}`
         ); 
         setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));
         setTotalQuizzes(totalQuizzes - 1);

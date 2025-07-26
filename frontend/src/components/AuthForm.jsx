@@ -35,7 +35,7 @@ export default function AuthForm(prop) {
       const validatedData = userSchema.parse(userData);
   
       const response = await axios.post(
-        `http://localhost:5000/api/quiz/${prop.api}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/quiz/${prop.api}`,
         validatedData,
         {
           headers: {

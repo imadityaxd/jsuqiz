@@ -55,7 +55,7 @@ export const QuizForm = () => {
 
       if (ownersVerifiedUser) {
         const response = await axios.post(
-          "http://localhost:5000/api/quiz/add-quiz",
+          `${import.meta.env.VITE_BACKEND_URL}/api/quiz/add-quiz`,
           validatedData,
           {
             headers: {
