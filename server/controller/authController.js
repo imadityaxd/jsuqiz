@@ -80,7 +80,7 @@ const loginUser = async (req, res) => {
     const options = {
   
       secure: true,
-      sameSite: "Strict",
+      sameSite: "None",
     };
 
     return res.status(200).cookie("token", token, options).json({
