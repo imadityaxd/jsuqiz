@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { QuizForm } from "./pages/QuizForm";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 import PlayQuiz from "./pages/PlayQuiz";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";

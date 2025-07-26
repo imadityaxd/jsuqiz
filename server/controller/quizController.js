@@ -3,6 +3,7 @@ import { Quiz } from "../quizModel/quizModel.js";
 const home = async (req, res) => {
   try {
     const data = await Quiz.find();
+    console.log(data);
     res.status(200).json(data);
   } catch (error) {
     console.log(error);
