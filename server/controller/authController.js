@@ -81,7 +81,6 @@ const loginUser = async (req, res) => {
   
       secure: true,
       sameSite: "None",
-      httpOnly: true,
       domain: "https://jsuqiz-frontend.onrender.com"
     };
 
