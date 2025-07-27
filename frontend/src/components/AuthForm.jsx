@@ -60,7 +60,9 @@ export default function AuthForm(prop) {
         navigate("/login"); 
       } else if (prop.api === "login") {
         setUsername(result.user.username);
+        console.log("ABout to navigate: ");
         navigate("/dashboard");
+        console.log("Navigated");
       }
     
     } catch (error) {
