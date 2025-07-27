@@ -81,7 +81,8 @@ const loginUser = async (req, res) => {
   
       secure: true,
       sameSite: "None",
-      domain:"https://jsuqiz-frontend.onrender.com"
+      httpOnly: true,
+      domain: ".onrender.com"
     };
 
     return res.status(200).cookie("token", token, options).json({
